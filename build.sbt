@@ -1,0 +1,26 @@
+lazy val root =
+  project
+    .in(file("."))
+    .settings( scalaVersion := "3.3.1"
+             , name         := "scala-minio-client"
+             , version      := "0.0.1"
+             , libraryDependencies ++= Seq(
+               "io.minio"       %  "minio"     % "8.5.7",
+               "org.scalatest"  %% "scalatest" % "3.2.17" % "test")
+    )
+
+scalacOptions ++= Seq(       
+  "-encoding", "utf8",        
+  "-feature",                 
+  "-language:implicitConversions",
+  "-language:existentials",
+  "-unchecked",
+  "-Werror",
+  "-deprecation"
+)
+
+Compile / run / fork := true
+Compile / run / javaOptions ++= Seq("-Xmx8G", "-Xss1G", "-XX:+UseG1GC")
+
+Test / fork := true
+Test / javaOptions ++= Seq("-Xmx8G", "-Xss1G", "-XX:+UseG1GC")
