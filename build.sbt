@@ -5,8 +5,10 @@ lazy val root =
              , name         := "scala-minio-client"
              , version      := "0.0.1"
              , libraryDependencies ++= Seq(
-               "io.minio"       %  "minio"     % "8.5.7",
-               "org.scalatest"  %% "scalatest" % "3.2.17" % "test")
+               "io.minio"              %  "minio"           % "8.5.7",
+               "com.github.pureconfig" %% "pureconfig-core" % "0.17.5",
+               "org.typelevel"         %% "cats-effect"     % "3.5.3",
+               "org.scalatest"         %% "scalatest"       % "3.2.17" % "test")
     )
 
 scalacOptions ++= Seq(       
