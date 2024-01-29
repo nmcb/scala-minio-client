@@ -28,6 +28,14 @@ class TestMinioClient extends AsyncFlatSpec
   import cats.effect.unsafe.implicits.global
 
   override def beforeAll(): Unit =
+    // TODO clean-up:
+    // - update config dynamically based on test container (s3URL)
+    // - start test-container based on config (accessKey, secretKey)
+    // - proper shutdown hook for client and server
+    // - programmable shutdown of the underlying okhttp client
+    // - optionally remove the unsafeRunSync's from beforeAll and afterAll
+    // - optionally factor into test trait
+    // - optionally factor/split into integration tests
     config = Config.load.unsafeRunSync()
     minio = MinIOContainer(userName = config.accessKey, password = config.secretKey)
     minio.start()
