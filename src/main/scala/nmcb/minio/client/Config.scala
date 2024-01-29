@@ -15,10 +15,13 @@ object Config:
   import cats.implicits.*
   import com.typesafe.config.ConfigFactory
 
-  def load: Resource[IO, Config] =
+  def resource: Resource[IO, Config] =
     val config = IO.delay(ConfigSource.default.at("minio-client").load[Config]).flatMap {
       case Left(error)  => IO.raiseError[Config](new ConfigReaderException[Config](error))
       case Right(value) => IO.pure(value)
     }
     Resource.eval(config)
+
+  def load: IO[Config] =
+    resource.use(IO.pure)
 

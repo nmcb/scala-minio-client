@@ -8,7 +8,10 @@ lazy val root =
                "io.minio"              %  "minio"           % "8.5.7",
                "com.github.pureconfig" %% "pureconfig-core" % "0.17.5",
                "org.typelevel"         %% "cats-effect"     % "3.5.3",
-               "org.scalatest"         %% "scalatest"       % "3.2.17" % "test")
+
+               "org.scalatest" %% "scalatest"                      % "3.2.17" % "test",
+               "com.dimafeng"  %% "testcontainers-scala-scalatest" % "0.41.2" % "test",
+               "com.dimafeng"  %% "testcontainers-scala-minio"     % "0.41.2" % "test")
     )
 
 scalacOptions ++= Seq(       

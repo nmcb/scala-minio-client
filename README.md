@@ -32,15 +32,16 @@ To keep your local MinIO installation up to date:
 mc admin update local
 ``` 
 
-### Contributing
+### Pull Requests
 
-PRs are appreciated. During development and to test changes, start the MinIO server locally:
+PRs are appreciated. During day to day development and to test local changes, start
+the MinIO server locally:
 
 ```shell
 minio server ~/data --console-address localhost:9001
 ```
 
-And when you call it a day, don't forget to stop the MinIO server:
+And when you call it a day, don't forget to stop the MinIO server, and commit your code:
 
 ```shell
 mc admin service stop local

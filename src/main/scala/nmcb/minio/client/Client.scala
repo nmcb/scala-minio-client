@@ -24,6 +24,6 @@ object Client:
   import cats.effect.*
   import cats.implicits.*
 
-  def load: Resource[IO, Client] =
-    Config.load.map: config =>
+  def resource: Resource[IO, Client] =
+    Config.resource.map: config =>
       Client(config)
