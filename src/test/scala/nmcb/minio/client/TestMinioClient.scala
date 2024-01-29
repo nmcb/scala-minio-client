@@ -13,7 +13,6 @@ import org.scalatest.matchers.should.*
 import org.scalatest.time.*
 
 import com.dimafeng.testcontainers.*
-import com.dimafeng.testcontainers.scalatest.*
 
 class TestMinioClient extends AsyncFlatSpec
   with Checkpoints
@@ -30,29 +29,16 @@ class TestMinioClient extends AsyncFlatSpec
 
   override def beforeAll(): Unit =
     config = Config.load.unsafeRunSync()
-
     minio = MinIOContainer(userName = config.accessKey, password = config.secretKey)
     minio.start()
     config = config.copy(endpoint = minio.s3URL)
-
-    println(minio.s3URL)
     val startup = Client.resourceWith(config).allocated.unsafeRunSync()
     client   = startup._1
-    shutdown = startup._2
+    shutdown = startup._2.map(_ => minio.stop())
 
   override def afterAll(): Unit =
-    super.afterAll()
     shutdown.unsafeRunSync()
 
-//  "minio server" should "be available" in {
-//    withContainers(minio =>
-//      println(minio)
-//      client.bucketExists("not-present") should be(false)
-//    )
-//  }
-
   "minio client" should "connect to a minio installation" in {
-//    withContainers(minio =>
       client.bucketExists("not-present") should be(false)
-//    )
   }
