@@ -19,26 +19,40 @@ class TestMinioClient extends AsyncFlatSpec
   with Checkpoints
   with Matchers
   with BeforeAndAfterAll
-  with Eventually
-  with TestContainerForAll:
+  with Eventually:
 
-  var client: Client        = null
-  var shutdown: IO[Unit]    = null
+  var config: Config         = null
+  var minio: MinIOContainer  = null
+  var client: Client         = null
+  var shutdown: IO[Unit]     = null
 
   import cats.effect.unsafe.implicits.global
 
-  override val containerDef: ContainerDef =
-    val config = Config.load.unsafeRunSync()
-    MinIOContainer.Def(userName = config.accessKey, password = config.secretKey)
-
   override def beforeAll(): Unit =
-    val startup = Client.resource.allocated.unsafeRunSync()
+    config = Config.load.unsafeRunSync()
+
+    minio = MinIOContainer(userName = config.accessKey, password = config.secretKey)
+    minio.start()
+    config = config.copy(endpoint = minio.s3URL)
+
+    println(minio.s3URL)
+    val startup = Client.resourceWith(config).allocated.unsafeRunSync()
     client   = startup._1
     shutdown = startup._2
 
   override def afterAll(): Unit =
+    super.afterAll()
     shutdown.unsafeRunSync()
 
+//  "minio server" should "be available" in {
+//    withContainers(minio =>
+//      println(minio)
+//      client.bucketExists("not-present") should be(false)
+//    )
+//  }
+
   "minio client" should "connect to a minio installation" in {
-    client.bucketExists("not-present") should be(false)
+//    withContainers(minio =>
+      client.bucketExists("not-present") should be(false)
+//    )
   }

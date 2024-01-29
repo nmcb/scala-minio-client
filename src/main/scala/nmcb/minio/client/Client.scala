@@ -27,3 +27,6 @@ object Client:
   def resource: Resource[IO, Client] =
     Config.resource.map: config =>
       Client(config)
+
+  def resourceWith(config: Config): Resource[IO, Client] =
+    Resource.eval(IO.pure(Client(config)))
