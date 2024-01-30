@@ -2,7 +2,7 @@ package nmcb
 package minio
 package client
 
-import io.minio.BucketExistsArgs
+import io.minio.{BucketExistsArgs, MakeBucketArgs}
 
 class Client(config: Config):
 
