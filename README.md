@@ -4,9 +4,11 @@ Provides an AWS S3 compliant Scala 3 client for MinIO infra-structures.
 
 ## Local development
 
-Local development requires a locally running MioIO installation.
+For local development you probably want a locally running MioIO installation, the integration tests require a docker daemon.
 
 ### Prerequisites
+
+To install a docker daemon locally, e.g. for Mac OS X follow the installation [instructions](https://docs.docker.com/desktop/install/mac-install/).
 
 To install MinIO locally, e.g. via `brew`:
 
@@ -34,8 +36,7 @@ mc admin update local
 
 ### Pull Requests
 
-PRs are appreciated. During day to day development and to test local changes, start
-the MinIO server locally:
+PRs are appreciated. During day to day development with local changes, you probably want to start a MinIO server locally:
 
 ```shell
 minio server ~/data --console-address localhost:9001
@@ -46,6 +47,8 @@ And when you call it a day, don't forget to stop the MinIO server, and commit yo
 ```shell
 mc admin service stop local
 ```
+
+We test the client in memory for which only a docker agent is required. Make sure you stop the minio server as explained above and start the docker daemon. E.g. on Mac OS X start the docker desktop application to make sure the background daemon is running.
 
 ---
 
