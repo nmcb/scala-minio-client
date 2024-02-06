@@ -25,3 +25,4 @@ object Config:
   def load: IO[Config] =
     resource.use(IO.pure)
 
+
