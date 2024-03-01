@@ -1,7 +1,7 @@
 lazy val root =
   project
     .in(file("."))
-    .settings( scalaVersion := "3.3.1"
+    .settings( scalaVersion := "3.3.3"
              , name         := "scala-minio-client"
              , version      := "0.0.1"
              , libraryDependencies ++= Seq(
