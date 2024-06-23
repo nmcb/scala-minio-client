@@ -6,7 +6,7 @@ lazy val root =
              , version      := "0.0.1"
              , libraryDependencies ++= Seq(
                "io.minio"       %  "minio"     % "8.5.10",
-               "org.scalatest"  %% "scalatest" % "3.2.18" % "test")
+               "org.scalatest"  %% "scalatest" % "3.2.19" % "test")
     )
 
 scalacOptions ++= Seq(       
