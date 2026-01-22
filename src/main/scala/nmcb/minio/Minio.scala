@@ -1,5 +1,8 @@
 package nmcb
 package minio
 
-object Minio extends App:
-  println(s"Minio")
+object Minio:
+
+  @main
+  def main(): Unit =
+    println(s"Minio")
